@@ -4,6 +4,32 @@
 
 using namespace std;
 
+class slice {
+    /*
+     * slice
+     * stores start, stop and step for array filtering
+     */
+    private:
+        int _start, _stop, _step;
+    
+    public:
+        slice(int stop) : _start(0), _stop(stop), _step(1){}
+        slice(int start, int stop) : _start(start), _stop(stop), _step(1){}
+        slice(int start, int stop, int step) : _start(start), _stop(stop), _step(step) {}
+
+        int get_start() {
+            return _start;
+        }
+
+        int get_stop() {
+            return _stop;
+        }
+        
+        int get_step() {
+            return _step;
+        }
+}
+
 template <typename st>
 class ndarray {
     /*
@@ -24,7 +50,7 @@ class ndarray {
         IndexVector _dims;
     
     /* 
-        operators
+        operators st=scalar type
     */
     operator+(ndarray, ndarray);
     
@@ -78,6 +104,10 @@ ndarray::ndarray(string dims) {
     vector<unsigned int> idims = util::get_dims(dims);
     unsigned int elements = util::prod<unsigned int>(idims);
     _array = vector<t>(elements);
+}
+
+ndarray& operator[] (slice) {
+    // this should return an array of references to entries in the original array.
 }
 
 ndarray::~ndarray() {
